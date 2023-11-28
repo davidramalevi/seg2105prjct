@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,12 +20,23 @@ import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Register extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword;
     Button button_reg;
+    RadioButton radio_clubowner, radio_participant;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
     FirebaseAuth mAuth;
     ProgressBar progressBar;
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -35,6 +48,7 @@ public class Register extends AppCompatActivity {
             finish();
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +58,10 @@ public class Register extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         button_reg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
+        radio_clubowner = findViewById(R.id.radioClubOwner);
+        radio_participant = findViewById(R.id.radioParticipant);
+
+
 
 
         //listener button
@@ -75,6 +93,22 @@ public class Register extends AppCompatActivity {
                                     // registration was successful, display a message to the user.
                                     Toast.makeText(Register.this, "Registration successful.",
                                             Toast.LENGTH_SHORT).show();
+                                    if(radio_clubowner.isChecked()){
+                                        Map<String, String> user = new HashMap<>();
+                                        user.put("email", email);
+                                        user.put("role", radio_clubowner.getText().toString());
+
+                                        DatabaseReference ref = database.getReference().child("Users").child("Role");
+                                        ref.setValue(user);
+                                    }
+                                    if(radio_participant.isChecked()){
+                                        Map<String, String> user = new HashMap<>();
+                                        user.put("email", email);
+                                        user.put("role", radio_participant.getText().toString());
+
+                                        DatabaseReference ref = database.getReference().child("Users").child("Role");
+                                        ref.setValue(user);
+                                    }
                                     // Create an Intent to start the login activity
                                     Intent intent = new Intent(Register.this, login.class);
                                     startActivity(intent);

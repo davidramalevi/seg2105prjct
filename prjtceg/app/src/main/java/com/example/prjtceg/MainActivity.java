@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             username.setText(user.getEmail());
+            if (user.getEmail()=="admin@admin.ca"){
+                Intent intent_admin = new Intent(getApplicationContext(), MainActivity_Admin.class);
+                startActivity(intent_admin);
+                finish();
+            }
         }
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override

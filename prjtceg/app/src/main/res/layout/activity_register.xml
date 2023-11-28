@@ -33,6 +33,25 @@
         android:hint="@string/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radioClubOwner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Club Owner" />
+
+        <RadioButton
+            android:id="@+id/radioParticipant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Participant" />
+
+    </RadioGroup>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
