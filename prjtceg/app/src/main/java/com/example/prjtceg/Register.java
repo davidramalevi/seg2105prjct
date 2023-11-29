@@ -94,21 +94,23 @@ public class Register extends AppCompatActivity {
                                     Toast.makeText(Register.this, "Registration successful.",
                                             Toast.LENGTH_SHORT).show();
                                     if(radio_clubowner.isChecked()){
-                                        Map<String, String> user = new HashMap<>();
+                                        DatabaseReference ref = database.getReference().child("Users").child(email.replace(".", ","));
+                                        Map<String, Object> user = new HashMap<>();
                                         user.put("email", email);
                                         user.put("role", radio_clubowner.getText().toString());
 
-                                        DatabaseReference ref = database.getReference().child("Users").child("Role");
                                         ref.setValue(user);
                                     }
                                     if(radio_participant.isChecked()){
-                                        Map<String, String> user = new HashMap<>();
+                                        DatabaseReference ref = database.getReference().child("Users").child(email.replace(".", ","));
+                                        Map<String, Object> user = new HashMap<>();
                                         user.put("email", email);
                                         user.put("role", radio_participant.getText().toString());
 
-                                        DatabaseReference ref = database.getReference().child("Users").child("Role");
                                         ref.setValue(user);
                                     }
+
+
                                     // Create an Intent to start the login activity
                                     Intent intent = new Intent(Register.this, login.class);
                                     startActivity(intent);

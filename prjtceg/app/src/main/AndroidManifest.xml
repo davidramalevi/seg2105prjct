@@ -15,6 +15,18 @@
         android:theme="@style/Theme.Material3.Dark"
         tools:targetApi="31">
         <activity
+            android:name=".MainAdminDeleteAccActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainAdminDeleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainAdminEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainAdminAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity_Participant"
             android:exported="false" />
         <activity
