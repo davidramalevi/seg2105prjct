@@ -3,10 +3,13 @@ package com.example.prjtceg;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,11 +72,48 @@ public class MainActivity_Admin extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_add = new Intent(getApplicationContext(), MainAdminAddActivity.class);
-                startActivity(intent_add);
-                finish();
+
+                // Create an AlertDialog.Builder instance
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                // Set the title for the dialog
+                builder.setTitle("Enter a new event name");
+
+                // Create an EditText instance
+                final EditText input = new EditText(view.getContext());
+
+                // Set the EditText as the view for the AlertDialog
+                builder.setView(input);
+
+                // Set the positive (OK) button and its click listener
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Get the input from the EditText
+                        String userInput = input.getText().toString();
+                        Admin admin = new Admin(userInput);
+                        admin.Admin_add_event_title(userInput);
+
+                        // After getting the user input, start the new activity
+                        Intent intent_add = new Intent(getApplicationContext(), MainAdminAddActivity.class);
+                        startActivity(intent_add);
+                        finish();
+                    }
+                });
+
+                // Set the negative (Cancel) button and its click listener
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                // Create and show the AlertDialog
+                builder.show();
             }
         });
+
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
